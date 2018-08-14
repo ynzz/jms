@@ -14,7 +14,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
  * @author szl
- * @data 2018Äê8ÔÂ5ÈÕ ÏÂÎç10:27:24
+ * @data 2018å¹´8æœˆ5æ—¥ ä¸‹åˆ10:27:24
  *
  */
 public class MsgConsumer {
@@ -23,31 +23,31 @@ public class MsgConsumer {
 	private static final String topicName ="activemq-topic";
 	
 	public static void main(String[] args) throws JMSException {
-		//1¡¢´´½¨ConnectionFactory
+		//1ã€åˆ›å»ºConnectionFactory
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
-		//2¡¢´´½¨Connection
+		//2ã€åˆ›å»ºConnection
 		Connection connection = connectionFactory.createConnection();
-		//3¡¢Æô¶¯Á¬½Ó
+		//3ã€å¯åŠ¨è¿æ¥
 		connection.start();
-		//4¡¢´´½¨»á»°  false:²»Ê¹ÓÃÊÂÎñ´¦Àí£¬Session.AUTO_ACKNOWLEDGE×Ô¶¯Ó¦´ğ
+		//4ã€åˆ›å»ºä¼šè¯  false:ä¸ä½¿ç”¨äº‹åŠ¡å¤„ç†ï¼ŒSession.AUTO_ACKNOWLEDGEè‡ªåŠ¨åº”ç­”
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		//5¡¢´´½¨Ä¿±ê
+		//5ã€åˆ›å»ºç›®æ ‡
 		Destination destination = session.createTopic(topicName);
-		//6¡¢´´½¨Ïû·ÑÕß
+		//6ã€åˆ›å»ºæ¶ˆè´¹è€…
 		MessageConsumer consumer = session.createConsumer(destination);
-		//7¡¢´´½¨¼àÌıÆ÷
+		//7ã€åˆ›å»ºç›‘å¬å™¨
 		consumer.setMessageListener(new MessageListener() {
 			@Override
 			public void onMessage(Message message) {
 				TextMessage textMessage = (TextMessage) message;
 				try {
-					System.out.println("½ÓÊÕÏûÏ¢£º" + textMessage.getText());
+					System.out.println("æ¥æ”¶æ¶ˆæ¯ï¼š" + textMessage.getText());
 				} catch (JMSException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		//8¡¢¹Ø±ÕÁ¬½Ó
+		//8ã€å…³é—­è¿æ¥
 //		connection.close();
 	}
 }

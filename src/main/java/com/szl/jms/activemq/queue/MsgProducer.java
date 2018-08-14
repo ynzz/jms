@@ -12,9 +12,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
  * @author szl
- * @data 2018Äê8ÔÂ5ÈÕ ÏÂÎç9:50:06
+ * @data 2018å¹´8æœˆ5æ—¥ ä¸‹åˆ9:50:06
  *
- * ÏûÏ¢Éú²úÕß
+ * æ¶ˆæ¯ç”Ÿäº§è€…
  */
 public class MsgProducer {
 
@@ -22,26 +22,26 @@ public class MsgProducer {
 	private static final String queueName ="activemq-queue";
 	
 	public static void main(String[] args) throws JMSException {
-		//1¡¢´´½¨ConnectionFactory
+		//1ã€åˆ›å»ºConnectionFactory
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
-		//2¡¢´´½¨Connection
+		//2ã€åˆ›å»ºConnection
 		Connection connection = connectionFactory.createConnection();
-		//3¡¢Æô¶¯Á¬½Ó
+		//3ã€å¯åŠ¨è¿æ¥
 		connection.start();
-		//4¡¢´´½¨»á»°  false:²»Ê¹ÓÃÊÂÎñ´¦Àí£¬Session.AUTO_ACKNOWLEDGE×Ô¶¯Ó¦´ğ
+		//4ã€åˆ›å»ºä¼šè¯  false:ä¸ä½¿ç”¨äº‹åŠ¡å¤„ç†ï¼ŒSession.AUTO_ACKNOWLEDGEè‡ªåŠ¨åº”ç­”
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		//5¡¢´´½¨Ä¿±ê
+		//5ã€åˆ›å»ºç›®æ ‡
 		Destination destination = session.createQueue(queueName);
-		//6¡¢´´½¨Éú²úÕß
+		//6ã€åˆ›å»ºç”Ÿäº§è€…
 		MessageProducer producer = session.createProducer(destination);
 		for (int i = 0; i < 100; i++) {
-			//7¡¢´´½¨ÏûÏ¢
+			//7ã€åˆ›å»ºæ¶ˆæ¯
 			TextMessage textMessage = session.createTextMessage("test " + i);
-			//8¡¢·¢²¼ÏûÏ¢
+			//8ã€å‘å¸ƒæ¶ˆæ¯
 			producer.send(textMessage);
-			System.out.println("·¢ËÍÏûÏ¢£º" + textMessage.getText());
+			System.out.println("å‘é€æ¶ˆæ¯ï¼š" + textMessage.getText());
 		}
-		//9¡¢¹Ø±ÕÁ¬½Ó
+		//9ã€å…³é—­è¿æ¥
 		connection.close();
 	}
 }
